@@ -18,6 +18,11 @@ def get_users():
 
     return User.query.all()  
 
+def get_user_by_email(email):
+    """Given an email, return a user."""
+        
+    return User.query.filter(User.email == email).first()
+        
 
 def create_movie(title, overview, release_date, poster_path):
     """Create and return a new movie."""
