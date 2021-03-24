@@ -17,6 +17,7 @@ def homepage():
 
     return render_template("homepage.html")
 
+
 @app.route('/movies')
 def show_movies():
     """List all movies"""
@@ -33,6 +34,7 @@ def show_users():
     users = crud.get_users()
 
     return render_template("users.html", users=users)
+
 
 @app.route('/users', methods=["POST"])
 def register_user():
@@ -52,13 +54,28 @@ def register_user():
 
     return redirect('/')
 
+
 @app.route('/login')
-def login_user(email, password):
+def login_user():
     """Logs in an existing user."""
 
-    # to be completed
+    email = request.form.get("login_email")
+    password = request.form.get("login_password")
+
+    user = crud.get_user_by_email(email)
+
+    if user != None:
+        if user.password == password:
+            flash('You have successfully logged in!')
+            session['user'] = user
+        else:
+            flash('Incorrect password.  Try again')
+
+    else:
+        flash('Email is not registered. Please create an account')
 
     return redirect('/')
+
 
 @app.route('/movies/<movie_id>')
 def show_movie_details(movie_id):
