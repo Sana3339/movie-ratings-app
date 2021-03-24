@@ -12,6 +12,13 @@ def create_user(email, password):
 
     return user
 
+
+def get_users():
+    """Return a list of all users."""
+
+    return User.query.all()  
+
+
 def create_movie(title, overview, release_date, poster_path):
     """Create and return a new movie."""
 
@@ -25,6 +32,20 @@ def create_movie(title, overview, release_date, poster_path):
 
     return movie
 
+def get_movies():
+    """Return a list of all movies in the database."""
+
+    return Movie.query.all()
+
+
+def get_movie_by_id(movie_id):
+    """Provided a movie_id, return the movie object."""
+
+    movie = Movie.query.get(movie_id)
+
+    return movie
+
+
 def create_rating(user, movie, score):
     """Create a new rating for a movie and return the rating."""
 
@@ -33,9 +54,7 @@ def create_rating(user, movie, score):
     db.session.add(rating)
     db.session.commit()
 
-    return rating
-
-    
+    return rating    
 
 
 if __name__ == '__main__':
